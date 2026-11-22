@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070a12">
+  <meta name="description" content="Detect statistical, schema, and payload drift before it reaches production.">
+  <title>DriftCheck — Data drift observability</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="DriftCheck home"><span class="brand-mark">D</span><span>drift<span class="brand-light">check</span><small>DATA QUALITY OBSERVABILITY</small></span></a>
+      <div class="engine"><span class="pulse"></span><span>Python engine <b id="engine-status">Connecting</b></span><span class="engine-divider"></span><span class="mono muted">STATISTICAL GUARD READY</span></div>
+      <div class="top-actions"><span id="health-badge" class="badge neutral">AWAITING ANALYSIS</span><button class="btn btn-ghost" id="load-preset">Load preset</button><button class="btn btn-primary" id="inject-anomaly">↗ Inject anomaly</button></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> DATASET INTELLIGENCE / LIVE MONITOR</div><h1>Catch drift before<br><span>it catches you.</span></h1><p>Compare production batches, surface silent distribution shifts, and keep your data contracts honest.</p></div>
+        <div class="hero-stat"><span class="stat-label">CURRENT DRIFT SCORE</span><div class="score-wrap"><strong id="hero-score">—</strong><span>/ 100</span></div><div class="score-track"><i id="score-bar"></i></div><span class="muted small" id="score-caption">Run an analysis to establish a signal</span></div>
+      </section>
+
+      <section class="section-heading"><div><span class="step">01</span><h2>Batch comparison</h2><p>Inspect baseline and candidate payloads before evaluation.</p></div><div class="editor-actions"><label class="control-label" for="dataset-select">SNAPSHOT</label><select id="dataset-select"></select><button class="btn btn-ghost btn-small" id="save-snapshot">＋ Save snapshot</button></div></section>
+      <section class="editor-grid">
+        <article class="panel editor-panel"><div class="panel-head"><div><span class="dot cyan"></span><h3>Baseline batch</h3></div><span class="meta" id="baseline-count">0 RECORDS</span></div><div class="editor-sub">REFERENCE DISTRIBUTION <span>JSON</span></div><textarea id="baseline-editor" spellcheck="false" aria-label="Baseline JSON records"></textarea></article>
+        <article class="panel editor-panel"><div class="panel-head"><div><span class="dot violet"></span><h3>Candidate batch</h3></div><span class="meta" id="candidate-count">0 RECORDS</span></div><div class="editor-sub">INCOMING DISTRIBUTION <span>JSON</span></div><textarea id="candidate-editor" spellcheck="false" aria-label="Candidate JSON records"></textarea></article>
+      </section>
+
+      <section class="panel config-panel"><div class="config-title"><div><span class="step">02</span><b>Detection thresholds</b><p>Fine-tune sensitivity for this evaluation.</p></div><button id="run-analysis" class="btn btn-primary btn-run"><span>▶</span> Run drift analysis</button></div><div class="thresholds"><label>Z-SCORE THRESHOLD <strong id="z-value">2.5</strong><input id="z-threshold" type="range" min="0.5" max="6" step="0.1" value="2.5"><span class="range-hint">Mean shift relative to baseline standard deviation</span></label><label>MAX NULL-RATE DELTA <strong id="null-value">10%</strong><input id="null-threshold" type="range" min="0" max="50" step="1" value="10"><span class="range-hint">Allowed increase in missing values</span></label></div></section>
+
+      <section class="results-section"><div class="section-heading"><div><span class="step">03</span><h2>Field diagnostics</h2><p>Statistical fingerprints across every detected field.</p></div><span id="field-count" class="meta">NO RESULTS</span></div><div id="diagnostics" class="diagnostics empty-state"><div class="empty-icon">⌁</div><b>Waiting for your first analysis</b><span>Run drift analysis to inspect field-level signals.</span></div></section>
+
+      <section class="section-heading registry-heading"><div><span class="step">04</span><h2>Snapshot registry</h2><p>Reusable reference and candidate batch pairs.</p></div><span class="meta" id="registry-count">0 SNAPSHOTS</span></section>
+      <section id="registry" class="registry-grid"></section>
+    </main>
+    <footer><span>DRIFTCHECK <span class="muted">/ PYTHON STATISTICAL ENGINE</span></span><span>Built for reliable data contracts <i>•</i> v1.0.0</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
